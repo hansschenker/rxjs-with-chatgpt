@@ -60,5 +60,51 @@ This repository is a living collection of knowledge about RxJS, continually grow
 
 Acknowledgments
 
+Test setup with Jest
+
 This repository is built through a collaboration between the RxJS community and ChatGPT, leveraging advanced AI to create a more comprehensive and accessible learning resource for reactive programming.
 
+Step 1: Install Required Packages
+To configure Jest for TypeScript, you will need ts-jest along with Jest itself. Run the following command in your project directory:
+
+bash
+Code kopieren
+npm install --save-dev jest ts-jest @types/jest
+jest: The testing framework.
+ts-jest: A TypeScript preprocessor for Jest.
+@types/jest: Type definitions for Jest.
+Step 2: Create Jest Configuration File
+You can create a Jest configuration file to set up ts-jest. Create a file named jest.config.js at the root of your project and add the following content:
+
+javascript
+Code kopieren
+// jest.config.js
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ['**/*.test.ts'], // Matches all files with .test.ts extension for testing
+  moduleFileExtensions: ['ts', 'js'], // File extensions Jest should process
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest', // Use ts-jest for .ts and .tsx files
+  },
+};
+This configuration:
+
+Uses ts-jest to transpile TypeScript files.
+Specifies that the test environment should be node.
+Sets up testMatch to find all .test.ts files for Jest to run.
+Step 3: Update package.json to Add Test Script
+Add a script to package.json to easily run your tests:
+
+json
+Code kopieren
+"scripts": {
+  "test": "jest"
+}
+Step 4: Run the Tests
+Once everything is set up, you can run your tests with:
+
+bash
+Code kopieren
+npm test
+This command will pick up all .test.ts files, compile them with ts-jest, and execute them using Jest.

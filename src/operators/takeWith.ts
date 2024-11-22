@@ -1,6 +1,6 @@
 // File: operators/takeWith.ts
 import { Observable } from 'rxjs';
-import {  take, skip } from 'rxjs/operators';
+import { take, skip } from 'rxjs/operators';
 
 // Define a strategy type that determines the behavior of the operator
 type TakeStrategy = 'take' | 'skip' | 'first' | 'last';
@@ -10,7 +10,23 @@ type TakeStrategy = 'take' | 'skip' | 'first' | 'last';
  * Allows you to specify a strategy to take or skip items from an Observable.
  *
  * @param strategy The strategy to apply ('take', 'skip', 'first', 'last')
- * @param count Number of items to take or skip (only for 'take' and 'skip')
+ * @param count Number of items to take or skip (only applicable for 'take' and 'skip')
+ * @returns A new Observable that emits values based on the specified strategy
+ *
+ * ## Example
+ * ```typescript
+ * import { of } from 'rxjs';
+ * import { takeWith } from './src/operators/takeWith';
+ *
+ * const obs = of(1, 2, 3, 4, 5);
+ * // Example using 'take'
+ * obs.pipe(takeWith('take', 3)).subscribe(console.log); // Output: 1, 2, 3
+ *
+ * // Example using 'first'
+ * obs.pipe(takeWith('first')).subscribe(console.log); // Output: 1
+ * ```
+ *
+ * In the above example, `takeWith` allows you to take or skip items from the source Observable using various strategies like 'take', 'skip', 'first', or 'last'.
  */
 export function takeWith<T>(strategy: TakeStrategy, count: number = 1) {
   return (source: Observable<T>): Observable<T> => {
@@ -48,4 +64,7 @@ export function takeWith<T>(strategy: TakeStrategy, count: number = 1) {
 
 // Example usage:
 // import { of } from 'rxjs';
-// of(1, 2, 3, 4, 5).pipe(takeWith('take', 3)).subscribe(console.log);
+// import { takeWith } from './src/operators/takeWith';
+
+// const obs = of(1, 2, 3, 4, 5);
+// obs.pipe(takeWith('take', 3)).subscribe(console.log);
